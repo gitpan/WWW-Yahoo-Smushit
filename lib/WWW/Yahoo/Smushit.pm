@@ -1,16 +1,18 @@
-#!/usr/bin/env perl
-
 package WWW::Yahoo::Smushit;
 
+use strict;
+use warnings;
 use Moose;
 use LWP::UserAgent;
 use JSON;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 has _ua => (
-    is  => 'rw',
-    default => sub { LWP::UserAgent->new; }
+    is       => 'rw',
+    lazy     => 1
+    required => 1,
+    default  => sub { LWP::UserAgent->new; }
 );
 
 has _service_url => (

@@ -1,5 +1,8 @@
 Revision history for Perl extension WWW::Yahoo::Smushit.
 
+0.02  Fri Sep 30 15:23:45 2011
+	- Just a installer fix
+
 0.01  Fri Sep 30 14:23:45 2011
 	- original version; created by h2xs 1.23 with options
 		-XA -n WWW::Yahoo::Smushit

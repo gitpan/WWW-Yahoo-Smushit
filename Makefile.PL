@@ -1,10 +1,49 @@
-use ExtUtils::MakeMaker;
 
-WriteMakefile(
-    NAME              => 'WWW::Yahoo::Smushit',
-    VERSION_FROM      => 'lib/WWW/Yahoo/Smushit.pm',
-    PREREQ_PM         => {},
-    ($] >= 5.005 ?
-      (ABSTRACT_FROM  => 'lib/WWW/Yahoo/Smushit.pm',
-       AUTHOR         => 'Junior Moraes <fvox@cpan.org>') : ()),
+use strict;
+use warnings;
+
+
+
+use ExtUtils::MakeMaker 6.30;
+
+
+
+my %WriteMakefileArgs = (
+  "ABSTRACT" => "Perl interface to Yahoo Smushit image optimizer",
+  "AUTHOR" => "Junior Moraes <fvox\@cpan.org>",
+  "BUILD_REQUIRES" => {},
+  "CONFIGURE_REQUIRES" => {
+    "ExtUtils::MakeMaker" => "6.30"
+  },
+  "DISTNAME" => "WWW-Yahoo-Smushit",
+  "EXE_FILES" => [],
+  "LICENSE" => "perl",
+  "NAME" => "WWW::Yahoo::Smushit",
+  "PREREQ_PM" => {},
+  "VERSION" => "0.03",
+  "test" => {
+    "TESTS" => "t/*.t"
+  }
 );
+
+
+unless ( eval { ExtUtils::MakeMaker->VERSION(6.56) } ) {
+  my $br = delete $WriteMakefileArgs{BUILD_REQUIRES};
+  my $pp = $WriteMakefileArgs{PREREQ_PM};
+  for my $mod ( keys %$br ) {
+    if ( exists $pp->{$mod} ) {
+      $pp->{$mod} = $br->{$mod} if $br->{$mod} > $pp->{$mod};
+    }
+    else {
+      $pp->{$mod} = $br->{$mod};
+    }
+  }
+}
+
+delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
+  unless eval { ExtUtils::MakeMaker->VERSION(6.52) };
+
+WriteMakefile(%WriteMakefileArgs);
+
+
+

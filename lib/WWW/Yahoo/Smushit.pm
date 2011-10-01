@@ -6,11 +6,11 @@ use Moose;
 use LWP::UserAgent;
 use JSON;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 has _ua => (
     is       => 'rw',
-    lazy     => 1
+    lazy     => 1,
     required => 1,
     default  => sub { LWP::UserAgent->new; }
 );
@@ -38,7 +38,7 @@ sub upload_by_url {
 sub _create_attrs_from_json {
     my ($self, $json) = @_;
 
-    for (keys $json) {
+    for (keys %{$json}) {
         $self->meta->add_attribute($_, is => 'rw');
         $self->$_($json->{$_});
     }
@@ -46,7 +46,7 @@ sub _create_attrs_from_json {
     $self->meta->make_immutable;
 
     return 0
-      if not keys $json
+      if not keys %{$json}
           or defined $json->{error};
     return 1;
 }

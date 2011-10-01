@@ -1,40 +1,39 @@
-WWW-Yahoo-Smushit version 0.01
-==============================
+NAME
+    WWW::Yahoo::Smushit - Perl interface to Yahoo Smushit image optimizer
 
-The README is used to introduce the module and provide instructions on
-how to install the module, any machine dependencies it may have (for
-example C compilers and installed libraries) and any other information
-that should be provided before the module is installed.
+SYNOPSIS
+        my $st = new WWW::Yahoo::Smushit;
 
-A README file is required for CPAN modules since CPAN extracts the
-README file from a module distribution so that people browsing the
-archive can use it get an idea of the modules uses. It is usually a
-good idea to provide version information here so that people can
-decide whether fixes for the module are worth downloading.
+        if($st->upload_by_url('http://img3.imageshack.us/img3/562/synyrt2.jpg')) {
+            printf("Image url:\t%s\nNew image:\t%s\nNew size:\t%s\nOld size:\t%s\nPercent:\t%s%%\n",
+                $st->src, $st->dest, $st->dest_size, $st->src_size, $st->percent);
+        }
+        else {
+            printf("Oops! Something is wrong...\n\nError:\t%s\n", $st->error);
+        }
 
-INSTALLATION
+DESCRIPTION
+    Smush.it is a service to optimize images, removing some unnecessary
+    data.
 
-To install this module type the following:
+METHODS
+  upload_by_url($img_url)
+    Send a request to the Smushit via http and retrieves the JSON object.
 
-   perl Makefile.PL
-   make
-   make test
-   make install
+INTERNALS
+  _create_attrs_from_json
+    Get the JSON and create the attributes.
 
-DEPENDENCIES
+  SEE ALSO
+    Smushit <http://smush.it/>.
 
-This module requires these other modules and libraries:
+AUTHOR
+    Junior Moraes <fvox@cpan.org>
 
-  Moose, LWP::UserAgent, JSON
+COPYRIGHT AND LICENSE
+    Copyright (C) 2011 by Junior Moraes
 
-COPYRIGHT AND LICENCE
-
-Put the correct copyright and licence information here.
-
-Copyright (C) 2011 by Junior Moraes
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself, either Perl version 5.14.0 or,
-at your option, any later version of Perl 5 you may have available.
-
+    This library is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself, either Perl version 5.8.4 or, at
+    your option, any later version of Perl 5 you may have available.
 
